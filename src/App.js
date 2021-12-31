@@ -45,6 +45,7 @@ function App() {
         resetTurn()
       } else {
         console.log('cards dont match')
+        resetTurn()
       }
     }
 
