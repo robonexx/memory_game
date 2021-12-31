@@ -58,7 +58,8 @@ function App() {
         resetTurn()
       } else {
         console.log('cards dont match')
-        resetTurn()
+        setTimeout(() => resetTurn(),1000)
+        
       }
     }
 
@@ -80,7 +81,7 @@ function App() {
       {/* creating the grid for the cards and mapping them */}
       <div className='card-grid'>
         {cards.map((card) => (
-          <SingleCard key={card.id} card={card} handleChoice={handleChoice} />
+          <SingleCard key={card.id} card={card} handleChoice={handleChoice} flipped={card === choiceOne || card === choiceTwo || card.matched}/>
         ))}
       </div>
     </div>
