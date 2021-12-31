@@ -16,7 +16,7 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
-  
+
   // shuffle cards
   const shuffleCards = () => {
     // make an array with 2 of the cardImages array with help of spread operator
@@ -32,41 +32,38 @@ function App() {
   // handle choice
   const handleChoice = (card) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
-
   };
 
   //compare choices
   useEffect(() => {
-
     if (choiceOne && choiceTwo) {
-      
       // checking if cards match
       if (choiceOne.src === choiceTwo.src) {
-        console.log('cards match')
+        console.log('cards match');
         //checking state of the cards and mapping thru each card returning a new array
-        setCards(prevCards => {
+        setCards((prevCards) => {
           //mapping thru the cards
-          return prevCards.map(card => {
+          return prevCards.map((card) => {
             if (card.src === choiceOne.src) {
               // updating the cards property matched to true
-              return {...card, matched: true}
+              return { ...card, matched: true };
             } else {
-              return card
+              return card;
             }
-          })
-        })
-        resetTurn()
+          });
+        });
+        resetTurn();
       } else {
-        console.log('cards dont match')
-        setTimeout(() => resetTurn(),1000)
-        
+        console.log('cards dont match');
+        // set timeout for the reset of the cards
+
+        setTimeout(() => resetTurn(), 1000);
       }
     }
+  }, [choiceOne, choiceTwo]);
 
-  }, [choiceOne, choiceTwo])
+  console.log(cards);
 
-  console.log(cards)
-  
   // reset choice and increase turn
   const resetTurn = () => {
     setChoiceOne(null);
@@ -81,7 +78,12 @@ function App() {
       {/* creating the grid for the cards and mapping them */}
       <div className='card-grid'>
         {cards.map((card) => (
-          <SingleCard key={card.id} card={card} handleChoice={handleChoice} flipped={card === choiceOne || card === choiceTwo || card.matched}/>
+          <SingleCard
+            key={card.id}
+            card={card}
+            handleChoice={handleChoice}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+          />
         ))}
       </div>
     </div>
