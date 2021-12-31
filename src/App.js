@@ -74,6 +74,11 @@ function App() {
     setDisabled(false);
   };
 
+  // start a new game automatically
+  useEffect(() => {
+    shuffleCards()
+  }, [])
+
   return (
     <div className='App'>
       <h1>Magic Match</h1>
@@ -91,6 +96,7 @@ function App() {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 }
