@@ -3,12 +3,12 @@ import './App.css';
 import SingleCard from './components/SingleCard';
 
 const cardImages = [
-  { src: '/img/helmet-1.png' },
-  { src: '/img/potion-1.png' },
-  { src: '/img/ring-1.png' },
-  { src: '/img/scroll-1.png' },
-  { src: '/img/shield-1.png' },
-  { src: '/img/sword-1.png' },
+  { src: '/img/helmet-1.png', matched: false },
+  { src: '/img/potion-1.png', matched: false },
+  { src: '/img/ring-1.png', matched: false },
+  { src: '/img/scroll-1.png', matched: false },
+  { src: '/img/shield-1.png', matched: false },
+  { src: '/img/sword-1.png', matched: false },
 ];
 
 function App() {
@@ -40,8 +40,21 @@ function App() {
 
     if (choiceOne && choiceTwo) {
       
+      // checking if cards match
       if (choiceOne.src === choiceTwo.src) {
         console.log('cards match')
+        //checking state of the cards and mapping thru each card returning a new array
+        setCards(prevCards => {
+          //mapping thru the cards
+          return prevCards.map(card => {
+            if (card.src === choiceOne.src) {
+              // updating the cards property matched to true
+              return {...card, matched: true}
+            } else {
+              return card
+            }
+          })
+        })
         resetTurn()
       } else {
         console.log('cards dont match')
@@ -50,6 +63,8 @@ function App() {
     }
 
   }, [choiceOne, choiceTwo])
+
+  console.log(cards)
   
   // reset choice and increase turn
   const resetTurn = () => {
